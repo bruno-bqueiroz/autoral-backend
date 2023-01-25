@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              Int          @id @default(autoincrement())
+  email           String       @unique @db.VarChar(255)
+  password        String       @db.VarChar(255)
+  Session         Session[]
+  Enrollment      Enrollment[]
+  Diario          Diario[]
+}
+
+model Session {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  User      User     @relation(fields: [userId], references: [id])
+  token     String
+}
+
+model Enrollment {
+  id        Int       @id @default(autoincrement())
+  name      String    @db.VarChar(255)
+  cpf       String    @db.VarChar(255)
+  userId    Int       @unique
+  User      User      @relation(fields: [userId], references: [id])
+  Address   Address[]
+  Veiculo   Veiculo[]
+  
+}
+
+model Address {
+  id            Int        @id @default(autoincrement())
+  cep           String     @db.VarChar(255)
+  street        String     @db.VarChar(255)
+  city          String     @db.VarChar(255)
+  state         String     @db.VarChar(255)
+  number        String     @db.VarChar(255)
+  neighborhood  String     @db.VarChar(255)
+  addressDetail String?    @db.VarChar(255)
+  enrollmentId  Int        @unique
+  Enrollment    Enrollment @relation(fields: [enrollmentId], references: [id])
+}
+
+model Veiculo {
+  id            Int      @id @default(autoincrement())
+  marca         String   @db.VarChar(255)
+  modelo        String   @db.VarChar(255)
+  ano           Int
+  enrollmentId  Int        @unique
+  Enrollment    Enrollment @relation(fields: [enrollmentId], references: [id])
+}
+
+model Diario {
+  id                Int        @id @default(autoincrement())
+  entrada           Int     
+  saida             Int       
+  horasTrabalhadas  Int     
+  KmPercorridos     Int     
+  NumeroViagens     Int
+  date              String     @db.VarChar(255)    
+  userId            Int
+  User      User     @relation(fields: [userId], references: [id])
+}
