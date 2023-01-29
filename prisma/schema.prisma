@@ -17,6 +17,8 @@ model User {
   Session         Session[]
   Enrollment      Enrollment[]
   Diario          Diario[]
+  Veiculo   Veiculo[]
+  Goal      Goal[]
 }
 
 model Session {
@@ -30,24 +32,12 @@ model Enrollment {
   id        Int       @id @default(autoincrement())
   name      String    @db.VarChar(255)
   cpf       String    @db.VarChar(255)
+  city      String     @db.VarChar(255)
+  state     String     @db.VarChar(255)
   userId    Int       @unique
   User      User      @relation(fields: [userId], references: [id])
-  Address   Address[]
-  Veiculo   Veiculo[]
   
-}
-
-model Address {
-  id            Int        @id @default(autoincrement())
-  cep           String     @db.VarChar(255)
-  street        String     @db.VarChar(255)
-  city          String     @db.VarChar(255)
-  state         String     @db.VarChar(255)
-  number        String     @db.VarChar(255)
-  neighborhood  String     @db.VarChar(255)
-  addressDetail String?    @db.VarChar(255)
-  enrollmentId  Int        @unique
-  Enrollment    Enrollment @relation(fields: [enrollmentId], references: [id])
+  
 }
 
 model Veiculo {
@@ -55,8 +45,8 @@ model Veiculo {
   marca         String   @db.VarChar(255)
   modelo        String   @db.VarChar(255)
   ano           Int
-  enrollmentId  Int        @unique
-  Enrollment    Enrollment @relation(fields: [enrollmentId], references: [id])
+  userId    Int       @unique
+  User      User      @relation(fields: [userId], references: [id])
 }
 
 model Diario {
@@ -70,3 +60,11 @@ model Diario {
   userId            Int
   User      User     @relation(fields: [userId], references: [id])
 }
+
+model Goal {
+  id        Int      @id @default(autoincrement())
+  meta      Int
+  entrada   Int
+  userId    Int
+  User      User     @relation(fields: [userId], references: [id])
+}   

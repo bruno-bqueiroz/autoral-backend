@@ -1,8 +1,8 @@
 import { ApplicationError } from "@/protocols";
 
-export function notoundError(): ApplicationError {
+export function notFoundError(): ApplicationError {
     return {
-      name: "NotoundError",
+      name: "notFoundError",
       message: "NotHaveDataForThisDay",
     };
   }

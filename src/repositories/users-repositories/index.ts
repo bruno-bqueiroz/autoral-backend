@@ -11,7 +11,7 @@ async function findByEmail(email: string, select?: Prisma.UserSelect) {
   if (select) {
     params.select = select;
   }
- 
+
   return prisma.user.findUnique(params);
 }
 

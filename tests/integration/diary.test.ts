@@ -18,9 +18,6 @@ beforeAll(async () => {
   await init();
 });
 
-beforeEach(async () => {
-  await cleanDb();
-});
 
 const server = supertest(app);
 
@@ -32,17 +29,28 @@ describe("GET /day", () => {
     expect(response.status).toEqual(httpStatus.BAD_REQUEST);
   });
   
-  it("should respond with status 404 when user has no diary for this day", async () => {
+  it("should respond with status 400 when user has no diary for this day", async () => {
     const response = await server.get("/day?date=2023-01-32");
 
-    expect(response.status).toEqual(httpStatus.NOT_FOUND);
+    expect(response.status).toEqual(httpStatus.BAD_REQUEST);
   });
 
   it("should respond with status 200 and data", async () => {
     const response = await server.get("/day?date=2023-01-24");
 
     expect(response.status).toEqual(httpStatus.OK);
-    expect(response.body).toHaveProperty("entrada", "saida"); 
+    expect(response.body).toEqual(
+        expect.objectContaining({
+          id: expect.any(Number),
+          entrada: expect.any(Number),
+          saida: expect.any(Number),
+          horasTrabalhadas: expect.any(Number),
+          KmPercorridos: expect.any(Number),
+          NumeroViagens: expect.any(Number),
+          date: expect.any(String),
+          userId: expect.any(Number),
+        })
+    )
   });
 });
 
@@ -78,7 +86,18 @@ describe("POST /day", () => {
     });
 
     expect(response.status).toEqual(httpStatus.OK);
-    expect(response.body).toHaveProperty("entrada", "saida"); 
+    expect(response.body).toEqual(
+        expect.objectContaining({
+          id: expect.any(Number),
+          entrada: expect.any(Number),
+          saida: expect.any(Number),
+          horasTrabalhadas: expect.any(Number),
+          KmPercorridos: expect.any(Number),
+          NumeroViagens: expect.any(Number),
+          date: expect.any(String),
+          userId: expect.any(Number),
+        })
+    )
   }); 
 
 })
@@ -114,9 +133,33 @@ describe("update day", () => {
     });
 
     expect(response.status).toEqual(httpStatus.OK);
-    expect(response.body).toHaveProperty("entrada", "saida"); 
+    expect(response.body).toEqual(
+        expect.objectContaining({
+          id: expect.any(Number),
+          entrada: expect.any(Number),
+          saida: expect.any(Number),
+          horasTrabalhadas: expect.any(Number),
+          KmPercorridos: expect.any(Number),
+          NumeroViagens: expect.any(Number),
+          date: expect.any(String),
+          userId: expect.any(Number),
+        })
+    )
   }); 
 
 })
 
 });
+
+
+/* {
+  id: 41,
+  entrada: 333,
+  saida: 111,
+  horasTrabalhadas: 11,
+  KmPercorridos: 222,
+  NumeroViagens: 22,
+  date: '2023-01-26',
+  userId: 1
+}
+ */

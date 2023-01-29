@@ -7,7 +7,7 @@ import { loadEnv, connectDb, disconnectDB } from "@/config";
 loadEnv();
 
 import { handleApplicationErrors } from "@/middlewares";
-import { diarioRouter, usersRouter } from "@/routers"; 
+import { diarioRouter, usersRouter, GoalRouter } from "@/routers"; 
 
 const app = express();
 app
@@ -15,6 +15,8 @@ app
   .use(express.json())
   .get("/health", (_req, res) => res.send("OK!"))
   .use("/day", diarioRouter)
+  .use("/users", usersRouter)
+  .use("/goal", GoalRouter)
   
   .use(handleApplicationErrors) ;
 

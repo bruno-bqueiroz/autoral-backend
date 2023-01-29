@@ -1,11 +1,11 @@
 import diarioRepository from "@/repositories/diario-repositories";
-import { notoundError } from "./errors";
+import { notFoundError } from "./errors";
 import { BodyDiary } from "@/protocols";
 
 export async function getDiary(date :string) {
       console.log(date)
      const data = await diarioRepository.findByDate(date);
-     if(data === null) throw notoundError();
+     if(data === null) throw notFoundError();
      console.log(data);
      return data;
   }
@@ -13,7 +13,7 @@ export async function getDiary(date :string) {
   export async function postDiary(date:string, body: BodyDiary) {
     console.log(date)
    const data = await diarioRepository.insertByDate(date, body);
-   if(data === null) throw notoundError();
+   if(data === null) throw notFoundError();
    console.log(data);
    return data;
 }
