@@ -1,10 +1,13 @@
 import { Router } from "express";
  
-import { diarioGet } from "@/controllers"; 
+import { diaryGet, diaryPost } from "@/controllers"; 
 
 const diarioRouter = Router();
 
-diarioRouter.get("/", diarioGet);
+diarioRouter
+    .get("", diaryGet)
+    .post("", diaryPost)
+
 
 
 export {diarioRouter}

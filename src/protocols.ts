@@ -30,3 +30,14 @@ export type ApplicationError = {
     name: string,
     message: string,
   };
+
+  export type BodyDiary = {
+    id?: number ,
+    entrada: number,
+    saida: number,
+    horasTrabalhadas: number,
+    KmPercorridos: number,
+    NumeroViagens: number,
+    date?: string,
+    userId?: number
+  }
