@@ -41,3 +41,28 @@ export type ApplicationError = {
     date?: string,
     userId?: number
   }
+
+  export type BodyGoals = {
+    id?: number,
+    meta: number,
+    entrada: number,
+    month?: number,
+  }
+
+  export type EnrollBody = 
+  [
+    {
+      id?: number,
+      name: string,
+      cpf: string,
+      city: string,
+      state: string,
+      userId?: number
+    },
+    { id?: number,
+      marca: string,
+      modelo: string,
+      ano: number,
+      userId?: number
+    }
+  ]
