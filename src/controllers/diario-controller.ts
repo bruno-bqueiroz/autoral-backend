@@ -24,7 +24,7 @@ export async function diaryGet(req: Request, res: Response) {
     const {date}  = req.query;
     if(!date || date == undefined) return res.sendStatus(httpStatus.BAD_REQUEST);
     const body = req.body as BodyDiary;
-
+    
     //if(!body || body == undefined) return res.sendStatus(httpStatus.BAD_REQUEST);
     
     try {

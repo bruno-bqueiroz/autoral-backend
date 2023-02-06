@@ -8,4 +8,4 @@ const usersRouter = Router();
 
 usersRouter.post("/", validateBody(createUserSchema), usersPost);
 
-export { usersRouter }; 
+export { usersRouter };

@@ -13,7 +13,7 @@ import supertest from "supertest";
   createPayment,
   generateCreditCardData,
 } from "../factories"; */
-import { cleanDb/* , generateValidToken */ } from "../helpers";
+import {/* , generateValidToken */ } from "../helpers";
 
 beforeAll(async () => {
   await init();

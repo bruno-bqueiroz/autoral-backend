@@ -2,10 +2,10 @@ import app, { init } from "@/app";
 import { prisma } from "@/config";
 import { duplicatedEmailError } from "@/services/users-service";
 import { faker } from "@faker-js/faker";
-import dayjs from "dayjs";
 import httpStatus from "http-status";
 import supertest from "supertest";
 import { createUser } from "../factories";
+
 
 beforeAll(async () => {
   await init();
@@ -33,8 +33,6 @@ describe("POST /users", () => {
       email: faker.internet.email(),
       password: faker.internet.password(6),
     });
-
-
 
       it("should respond with status 409 when there is an user with given email", async () => {
         const body = generateValidBody();
@@ -81,5 +79,5 @@ describe("POST /users", () => {
           }),
         );
       });
-    });
   });
+});
