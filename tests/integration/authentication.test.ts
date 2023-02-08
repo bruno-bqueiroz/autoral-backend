@@ -7,7 +7,6 @@ import { createUser } from "../factories";
 beforeAll(async () => {
   await init();
 });
-
 const server = supertest(app);
 
 describe("POST /auth/sign-in", () => {
