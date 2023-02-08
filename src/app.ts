@@ -7,15 +7,16 @@ import { loadEnv, connectDb, disconnectDB } from "@/config";
 loadEnv();
 
 import { handleApplicationErrors } from "@/middlewares";
-import { diarioRouter, usersRouter, GoalRouter, enrollRouter } from "@/routers"; 
+import { diarioRouter, usersRouter, authenticationRouter, GoalRouter, enrollRouter } from "@/routers"; 
 
 const app = express();
 app
   .use(cors())
   .use(express.json())
   .get("/health", (_req, res) => res.send("OK!"))
-  .use("/day", diarioRouter)
   .use("/users", usersRouter)
+  .use("/auth", authenticationRouter)
+  .use("/day", diarioRouter)
   .use("/goal", GoalRouter)
   .use("/enroll", enrollRouter)
   
