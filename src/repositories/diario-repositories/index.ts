@@ -2,16 +2,18 @@ import { prisma } from "@/config";
 import { BodyDiary } from "@/protocols";
 import { Prisma } from "@prisma/client";
 import { UPGRADE_REQUIRED } from "http-status";
+import { userInfo } from "os";
 
 
-async function findByDate(date: string) {
+async function findByDate(date: string, userId:number) {
 
     return prisma.diario.findFirst({
-      where: {date:date}
+      where: {date:date, userId: userId}
+
     })
   
   }
-  async function insertByDate(date: string, body: BodyDiary) {
+  async function insertByDate(date: string, body: BodyDiary, userId:number) {
 
     return prisma.diario.upsert({
       where: {
@@ -24,7 +26,7 @@ async function findByDate(date: string) {
         KmPercorridos: body.KmPercorridos,
         NumeroViagens: body.NumeroViagens,
         date:date,
-        userId:body.userId
+        userId:userId
       },
       update: {
         entrada:body.entrada,
@@ -33,7 +35,7 @@ async function findByDate(date: string) {
         KmPercorridos: body.KmPercorridos,
         NumeroViagens: body.NumeroViagens,
         date:date,
-        userId:body.userId
+        userId:userId
       }
     })
    

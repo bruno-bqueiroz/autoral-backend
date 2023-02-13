@@ -45,8 +45,9 @@ export type ApplicationError = {
   export type BodyGoals = {
     id?: number,
     meta: number,
-    entrada: number,
+    entrada?: number,
     month?: number,
+    userId?: number
   }
 
   export type EnrollBody = 

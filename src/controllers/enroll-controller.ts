@@ -1,14 +1,13 @@
-import { Request, Response } from "express";
+import { AuthenticatedRequest } from "@/middlewares";
+import { Response } from "express";
 import httpStatus from "http-status";
 import { getEnroll, postEnroll } from "@/services";
 import { EnrollBody } from "@/protocols";
-import { type } from "os";
-import { Console } from "console";
 
-export async function enrollGet(req: Request, res: Response) {
-    
-    const userId: number = Number(req.query.userId) //req.userId
-    if(!userId ) return res.sendStatus(httpStatus.UNAUTHORIZED);
+
+export async function enrollGet(req: AuthenticatedRequest, res: Response) {
+    const { userId } = req;
+    console.log(userId);
     
     try {
       const data = await getEnroll(userId);
@@ -22,9 +21,10 @@ export async function enrollGet(req: Request, res: Response) {
     }
 }
 
-export async function enrollPost(req: Request, res: Response) {
+export async function enrollPost(req: AuthenticatedRequest, res: Response) {
     
-  const userId: number = Number(req.query.userId) //req.userId
+  const { userId } = req;
+  console.log(userId)
   if(!userId ) return res.sendStatus(httpStatus.UNAUTHORIZED);
   const body = req.body;
   console.log(body);

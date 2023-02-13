@@ -1,13 +1,13 @@
+import { AuthenticatedRequest } from "@/middlewares";
 import { Request, Response } from "express";
 import httpStatus from "http-status";
 import { getGoal, postGoal } from "@/services";
 import { BodyGoals } from "@/protocols";
 
-export async function goalGet(req: Request, res: Response) {
-    
-    const userId: number = Number(req.query.userId) //req.userId
-    if(!userId ) return res.sendStatus(httpStatus.UNAUTHORIZED);
-    const month: number = Number(req.query.month);
+export async function goalGet(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+
+  const month: number = Number(req.query.month);
     if(!month ) return res.sendStatus(httpStatus.BAD_REQUEST);
     try {
       const data = await getGoal(userId, month);
@@ -21,13 +21,14 @@ export async function goalGet(req: Request, res: Response) {
     }
 }
 
-export async function goalPost(req: Request, res: Response) {
+export async function goalPost(req: AuthenticatedRequest, res: Response) {
     
-  const userId: number = Number(req.query.userId) //req.userId
-  if(!userId ) return res.sendStatus(httpStatus.UNAUTHORIZED);
+  const { userId } = req;
+  
   const month: number = Number(req.query.month);
     if(!month ) return res.sendStatus(httpStatus.BAD_REQUEST);
   const body = req.body as BodyGoals;
+  console.log(req.body)
   try {
     const data = await postGoal(userId, month, body);
     

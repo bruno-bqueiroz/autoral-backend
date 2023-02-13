@@ -11,10 +11,19 @@ async function findByuserId(userId: number, month: number) {
 
 async function postByuserId(userId: number, month: number, body: BodyGoals) {
     
-  return prisma.goal.create({
-    data: {
+  return prisma.goal.upsert({
+    where: {
+      id: body.id || 0,
+    },
+      create: {
       userId: userId,
-      meta: body.meta,
+      meta: Number(body.meta),
+      entrada: body.entrada,
+      month: month
+    },
+    update: {
+      userId: userId,
+      meta: Number(body.meta),
       entrada: body.entrada,
       month: month
     }
