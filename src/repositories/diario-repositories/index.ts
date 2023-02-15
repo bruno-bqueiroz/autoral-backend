@@ -13,7 +13,7 @@ async function findByDate(date: string, userId:number) {
     })
   
   }
-  async function insertByDate(date: string, body: BodyDiary, userId:number) {
+  async function insertByDate(date: string, body: BodyDiary, userId:number ) {
 
     return prisma.diario.upsert({
       where: {

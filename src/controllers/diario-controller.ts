@@ -30,11 +30,11 @@ export async function diaryGet(req: AuthenticatedRequest, res: Response) {
     if(!date || date == undefined) return res.sendStatus(httpStatus.BAD_REQUEST);
     const body = req.body as BodyDiary;
     
-    //if(!body || body == undefined) return res.sendStatus(httpStatus.BAD_REQUEST);
+    if(!body || body == undefined) return res.sendStatus(httpStatus.BAD_REQUEST);
     
     try {
       const data = await diarioService.postDiary(String(date), body, userId);
-      
+     
       return res.status(httpStatus.OK).send(data);
     } catch (error) {
       if (error.name === "NotoundError") {

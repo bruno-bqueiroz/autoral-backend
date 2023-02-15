@@ -24,17 +24,28 @@ async function postByuserId(userId: number, month: number, body: BodyGoals) {
     update: {
       userId: userId,
       meta: Number(body.meta),
-      entrada: body.entrada,
       month: month
     }
   });
   
 }
 
+async function updateInput(oldInput:number, idGoal:number){
+  return prisma.goal.update({
+    where: {
+      id: idGoal
+    },
+    data: {
+      entrada: oldInput
+    }
+  }) 
+}
+
 
   const goalRepository = {
     findByuserId,
-    postByuserId
+    postByuserId,
+    updateInput
   };
   
   export default goalRepository;
