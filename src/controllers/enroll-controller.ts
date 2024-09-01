@@ -12,6 +12,8 @@ export async function enrollGet(req: Request, res: Response) {
     
     try {
       const data = await getEnroll(userId);
+      console.log("🚀 ~ enrollGet ~ data:", data)
+      // console.log("metas =>", data)
       
       return res.status(httpStatus.OK).send(data);
     } catch (error) {
@@ -23,11 +25,9 @@ export async function enrollGet(req: Request, res: Response) {
 }
 
 export async function enrollPost(req: Request, res: Response) {
-    
-  const userId: number = Number(req.query.userId) //req.userId
+  const userId: number = Number(req.query.userId)
   if(!userId ) return res.sendStatus(httpStatus.UNAUTHORIZED);
   const body = req.body;
-  console.log(body);
   if(body[1] === undefined) return res.sendStatus(httpStatus.BAD_REQUEST);
 
   try {

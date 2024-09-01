@@ -7,7 +7,7 @@ import { loadEnv, connectDb, disconnectDB } from "@/config";
 loadEnv();
 
 import { handleApplicationErrors } from "@/middlewares";
-import { diarioRouter, usersRouter, authenticationRouter, GoalRouter, enrollRouter } from "@/routers"; 
+import { diarioRouter, weekRouter, usersRouter, authenticationRouter, GoalRouter, enrollRouter } from "@/routers"; 
 
 const app = express();
 app
@@ -17,6 +17,7 @@ app
   .use("/users", usersRouter)
   .use("/auth", authenticationRouter)
   .use("/day", diarioRouter)
+  .use("/week", weekRouter)
   .use("/goal", GoalRouter)
   .use("/enroll", enrollRouter)
   

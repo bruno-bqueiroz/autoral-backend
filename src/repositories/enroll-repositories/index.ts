@@ -9,16 +9,25 @@ async function findByuserId(userId: number) {
             userId:userId,
         }
     })
+
+    const goal = await prisma.goal.findUnique({
+      where: {
+          userId:userId,
+      }
+  })
+    console.log("🚀 ~ findByuserId ~ goal:", goal)
+  
     const veiculo = await prisma.veiculo.findUnique({
         where: {
             userId:userId,
         }
     })
-    return [enroll, veiculo];
+    return [enroll, goal, veiculo];
 }
 
 async function createdByuserId(userId: number, body: EnrollBody) {
-    
+  console.log("🚀 ~ file: index.ts:21 ~ createdByuserId ~ body:", body)
+  
     const enroll = await prisma.enrollment.upsert({
         where: {
             userId: userId || 0,    
@@ -38,6 +47,37 @@ async function createdByuserId(userId: number, body: EnrollBody) {
             userId: userId,
         }
     });
+
+    const existingGoal = await prisma.goal.findFirst({
+        where: {
+          userId: userId
+        }
+      });
+      
+      if (existingGoal) {
+        console.log("🚀 ~ file: index.ts:50 ~ createdByuserId ~ existingGoal:", existingGoal)
+        // Atualize o registro existente
+        const updatedGoal = await prisma.goal.update({
+          where: { id: existingGoal.id }, // Use a chave primária para atualização
+          data: {
+            meta: Number(body[0].meta),
+            entrada: 0,
+            month: 0,
+          },
+        });
+      } else {
+        console.log("nao existe meta criada")
+        // Crie um novo registro
+        const newGoal = await prisma.goal.create({
+          data: {
+            meta: Number(body[0].meta),
+            entrada: 0,
+            month: 0,
+            userId: userId,
+          },
+        });
+      }
+      
 
     const veiculo = await prisma.veiculo.upsert({
         where: {

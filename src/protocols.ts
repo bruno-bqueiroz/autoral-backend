@@ -49,6 +49,13 @@ export type ApplicationError = {
     month?: number,
   }
 
+  export type BodyWeek = {
+    id?: number,
+    metaWeek: number,
+    entradaWeek: number,
+    saidaWeek: number
+  }
+
   export type EnrollBody = 
   [
     {
@@ -57,6 +64,7 @@ export type ApplicationError = {
       cpf: string,
       city: string,
       state: string,
+      meta: string,
       userId?: number
     },
     { id?: number,

@@ -8,10 +8,10 @@ export async function goalGet(req: Request, res: Response) {
     const userId: number = Number(req.query.userId) //req.userId
     if(!userId ) return res.sendStatus(httpStatus.UNAUTHORIZED);
     const month: number = Number(req.query.month);
-    if(!month ) return res.sendStatus(httpStatus.BAD_REQUEST);
+    // if(!month ) return res.sendStatus(httpStatus.BAD_REQUEST);
     try {
       const data = await getGoal(userId, month);
-      
+      console.log("goal com mês", data)
       return res.status(httpStatus.OK).send(data);
     } catch (error) {
       if (error.name === "notFoundError") {

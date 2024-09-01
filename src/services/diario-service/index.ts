@@ -5,6 +5,7 @@ import { BodyDiary } from "@/protocols";
 export async function getDiary(date :string) {
 
      const data = await diarioRepository.findByDate(date);
+     console.log("dados do diario", data);
      if(data === null) throw notFoundError();
      
      return data;
