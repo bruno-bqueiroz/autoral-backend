@@ -11,7 +11,6 @@ export async function goalGet(req: Request, res: Response) {
     // if(!month ) return res.sendStatus(httpStatus.BAD_REQUEST);
     try {
       const data = await getGoal(userId, month);
-      console.log("goal com mês", data)
       return res.status(httpStatus.OK).send(data);
     } catch (error) {
       if (error.name === "notFoundError") {

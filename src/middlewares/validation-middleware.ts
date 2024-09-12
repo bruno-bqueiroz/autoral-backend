@@ -25,4 +25,23 @@ function validate(schema: ObjectSchema, type: "body" | "params") {
   };
 }
 
+const jwt = require('jsonwebtoken');
+
+export function authenticateToken(req: any, res: { sendStatus: (arg0: number) => any; }, next: () => void) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1]; // Extrai o token "Bearer token"
+  console.log("🚀 ~ authenticateToken ~ token:", token)
+  
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.JWT_SECRET, (err: any, user: any) => {
+    if (err) return res.sendStatus(403);
+    console.log("passou")
+    req.user = user; // Coloca os dados do usuário no request
+    next(); // Passa para a próxima função
+  });
+}
+
+
+
 type ValidationMiddleware = (req: Request, res: Response, next: NextFunction)=> void;

@@ -4,7 +4,6 @@ import { BodyGoals } from "@/protocols";
 
 export async function getWeek(userId: number, startOfWeek: Date, endOfWeek:Date) {
      const data = await weekRepository.findByuserId(userId, startOfWeek, endOfWeek);
-     console.log("🚀 ~ getWeek ~ data:", data)
      if(data === null) throw notFoundError();
      
      return data;

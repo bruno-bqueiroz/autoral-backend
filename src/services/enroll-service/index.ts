@@ -4,7 +4,6 @@ import { notFoundError } from "../diario-service/errors";
 
 export async function getEnroll(userId: number) {
      const data = await enrollRepository.findByuserId(userId);
-     console.log("🚀 ~ getEnroll ~ data:", data)
      if(data === null || data[0] === null) throw notFoundError();
      return data;
 }

@@ -12,8 +12,6 @@ export async function enrollGet(req: Request, res: Response) {
     
     try {
       const data = await getEnroll(userId);
-      console.log("🚀 ~ enrollGet ~ data:", data)
-      // console.log("metas =>", data)
       
       return res.status(httpStatus.OK).send(data);
     } catch (error) {

@@ -6,7 +6,6 @@ async function findByuserId(userId: number, startOfWeek: Date, endOfWeek:Date) {
 
     const startOfWeekStr = startOfWeek.toISOString().split('T')[0];
     const endOfWeekStr = endOfWeek.toISOString().split('T')[0];
-    console.log("🚀 ~ findByuserId ~ endOfWeekStr:", endOfWeekStr)
     
     return await prisma.diario.findMany({
       where: {

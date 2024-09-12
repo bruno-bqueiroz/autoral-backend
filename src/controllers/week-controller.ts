@@ -1,19 +1,16 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
-import { BodyGoals } from "@/protocols";
 import { getWeek, postWeek } from "@/services/week-service";
 
 export async function weekGet(req: Request, res: Response) {
     
     const userId: number = Number(req.query.userId) //req.userId
-    console.log("🚀 ~ weekGet ~ userId:", userId)
     if(!userId ) return res.sendStatus(httpStatus.UNAUTHORIZED);
     const now = new Date();
     const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay() + 1)); // Segunda-feira
     const endOfWeek = new Date(now.setDate(startOfWeek.getDate() + 6)); // Domingo
     try {
       const data = await getWeek(userId, startOfWeek, endOfWeek);
-      console.log("goal com mês", data)
       return res.status(httpStatus.OK).send(data);
     } catch (error) {
       if (error.name === "notFoundError") {
