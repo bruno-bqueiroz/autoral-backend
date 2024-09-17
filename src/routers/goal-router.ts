@@ -1,13 +1,12 @@
 import { Router } from "express";
  
 import { goalGet, goalPost } from "@/controllers"; 
+import { authenticateToken } from "@/middlewares";
 
 const GoalRouter = Router();
 
 GoalRouter
-    .get("", goalGet)
-    .post("", goalPost)
-
-
+    .get("", authenticateToken, goalGet)
+    .post("", authenticateToken, goalPost)
 
 export {GoalRouter}

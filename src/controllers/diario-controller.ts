@@ -5,9 +5,7 @@ import { BodyDiary } from "@/protocols";
 
 export async function diaryGet(req: any, res: Response) {
     const {date}  = req.query;
-    console.log("🚀 ~ diaryGet ~ req:", req)
     const userId = req.user.userId;
-    console.log("🚀 ~ diaryGet ~ userId:", userId)
     if(!date || date == undefined) return res.sendStatus(httpStatus.BAD_REQUEST);
   
     try {

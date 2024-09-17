@@ -3,8 +3,6 @@ import { BodyGoals } from "@/protocols";
 
 
 async function findByuserId(userId: number, month: number) {
-
-
   
   const goalWithEntries = await prisma.goal.findFirst({
     where: {
@@ -30,7 +28,7 @@ const totalEntries = await prisma.diario.aggregate({
         entrada: true
     },
     where: {
-        userId: 1,
+        userId: userId,
         date: {
             gte: startDate,
             lt: endDate

@@ -2,9 +2,10 @@ import { Request, Response } from "express";
 import httpStatus from "http-status";
 import { getWeek, postWeek } from "@/services/week-service";
 
-export async function weekGet(req: Request, res: Response) {
+export async function weekGet(req: any, res: Response) {
     
-    const userId: number = Number(req.query.userId) //req.userId
+    const userId = req.user.userId;
+
     if(!userId ) return res.sendStatus(httpStatus.UNAUTHORIZED);
     const now = new Date();
     const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay() + 1)); // Segunda-feira

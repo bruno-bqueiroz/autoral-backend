@@ -5,10 +5,10 @@ import { EnrollBody } from "@/protocols";
 import { type } from "os";
 import { Console } from "console";
 
-export async function enrollGet(req: Request, res: Response) {
-    
-    const userId: number = Number(req.query.userId) //req.userId
-    if(!userId ) return res.sendStatus(httpStatus.UNAUTHORIZED);
+export async function enrollGet(req: any, res: Response) {
+
+  const userId = req.user.userId;
+  if(!userId ) return res.sendStatus(httpStatus.UNAUTHORIZED);
     
     try {
       const data = await getEnroll(userId);
@@ -22,8 +22,9 @@ export async function enrollGet(req: Request, res: Response) {
     }
 }
 
-export async function enrollPost(req: Request, res: Response) {
-  const userId: number = Number(req.query.userId)
+export async function enrollPost(req: any, res: Response) {
+  
+  const userId = req.user.userId;
   if(!userId ) return res.sendStatus(httpStatus.UNAUTHORIZED);
   const body = req.body;
   if(body[1] === undefined) return res.sendStatus(httpStatus.BAD_REQUEST);

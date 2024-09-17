@@ -3,9 +3,9 @@ import httpStatus from "http-status";
 import { getGoal, postGoal } from "@/services";
 import { BodyGoals } from "@/protocols";
 
-export async function goalGet(req: Request, res: Response) {
+export async function goalGet(req: any, res: Response) {
     
-    const userId: number = Number(req.query.userId) //req.userId
+    const userId: number = Number(req.user.userId);
     if(!userId ) return res.sendStatus(httpStatus.UNAUTHORIZED);
     const month: number = Number(req.query.month);
     // if(!month ) return res.sendStatus(httpStatus.BAD_REQUEST);
@@ -20,9 +20,9 @@ export async function goalGet(req: Request, res: Response) {
     }
 }
 
-export async function goalPost(req: Request, res: Response) {
+export async function goalPost(req: any, res: Response) {
     
-  const userId: number = Number(req.query.userId) //req.userId
+  const userId: number = Number(req.user.userId);
   if(!userId ) return res.sendStatus(httpStatus.UNAUTHORIZED);
   const month: number = Number(req.query.month);
     if(!month ) return res.sendStatus(httpStatus.BAD_REQUEST);
